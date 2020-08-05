@@ -1,0 +1,117 @@
+{% extends "qcrep/base.html" %}
+
+
+{% block scripts%}
+{%endblock scripts%}
+
+{% block content %}
+<script>
+    $(document).ready(function(){
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: [{% for qcreports in qcreports %}'{{ qcreports.author__username }}',{% endfor %}],
+                datasets: [{
+                    label: 'Total Titles Reviewed by Operator',
+                    data: [{% for qcreports in qcreports %}'{{ qcreports.total_qcreports}}',{% endfor %}],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    
+    
+    });
+    
+</script>
+<br><br><br>
+
+<div class="container">
+   
+    <h2 style="color: red">2020 KPI reports</h2><br>
+    
+    <center>
+        <div class="w-75">
+           
+            <canvas id="myChart" >
+            </canvas>
+           
+    
+    <div class="w-70">
+
+
+        
+        <div class="w-70">
+                <h2 style="color: red">Total reports 2020 // {{ total_qc }}</h1>
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">User ID</th>
+                        <th scope="col">Username </th>   
+                        <th scope="col">Total Reports</th>
+                                
+                    </tr>
+                </thead>
+        
+        
+            {% for qcreports in qcreports %}
+                
+                <tbody>
+                    <tr>
+                        <ul>
+                        <td> {{ qcreports.author }}</td>
+                    
+                        <td>
+                            {{ qcreports.author__username }}                    
+                        </td>                        
+                        <td>{{ qcreports.total_qcreports}}</td>
+                        </ul>
+                        
+                    </tr>
+                </tbody>
+               
+            {% endfor %}
+            </table>
+           
+        </div> 
+        
+    </center> 
+    <a href="/user_reports">View Historical KPI reports</a><br>
+    <a href="/about">View 2019 KPI reports</a><br>
+    
+    </div>
+
+{% endblock content %}

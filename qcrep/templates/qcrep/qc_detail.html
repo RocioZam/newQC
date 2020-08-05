@@ -1,0 +1,79 @@
+{% extends "qcrep/base.html" %}
+{% load static %}
+{% block scripts%}
+{%endblock scripts%}
+
+{% block content %}
+<br><br><br>
+
+<div class="container">
+    
+    <h2 style="color: red">QC Reports Detail Page for title:  {{ object.title }} !</h2>
+    <h2 style="color: red">Client:  {{ object.client }} !</h2>
+
+        
+        <center>
+                Update record: <a href="update">click here</a><br>
+        <div class="w-75">
+        <table class="table table-striped table-dark">
+                <tr>
+                        <th scope="row">Image Reference</th>
+                        <td><img src="/static/{{ object.image }}"></td>
+                </tr>
+                
+            <tr>
+                <th scope="row">Status</th>
+                <td><h2>{{ object.status }}</h2></td>
+            </tr>
+            <tr>
+                <th scope="row">Filename</th>
+                <td>{{ object.filename }}</td>
+            </tr>
+            
+            <tr>
+                    <th scope="row">Resolution</th>
+                    <td>{{ object.resolution }}</td>
+            </tr>
+                <tr>
+                    <th scope="row">Date Posted</th>
+                    <td>{{ object.date_posted|date:"F d, Y" }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Technical Rejection</th>
+                    <td>{{ object.tecreject }}</td>
+            </tr>
+            <tr>
+                    <th scope="row">Aspect Ratio</th>
+                    <td>{{ object.aspect }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Codec</th>
+                    <td>{{ object.codec }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Bit Rate</th>
+                    <td>{{ object.bit }}</td>
+            </tr>
+            <tr>
+                    <th scope="row">FPS</th>
+                    <td>{{ object.framesPerSecond }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Comments</th>
+                    <td>{{ object.conmments }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Reviewed By</th>
+                    <td>{{ object.author }}</td>
+            </tr>
+            
+        </table>
+
+        
+        </div>
+        </center>
+    
+
+
+
+{% endblock content %}

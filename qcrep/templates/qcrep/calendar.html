@@ -1,0 +1,33 @@
+{% extends "qcrep/base.html" %}
+{% load static %}
+
+{% block title %}
+Calendar
+{% endblock %}
+
+{% block extra_css %}
+    <link href="static/styles.css" rel="stylesheet" media="screen">
+{% endblock %}
+
+{% block content %}
+<br><br><br>
+
+<div class="container">
+        
+
+    <div class="clearfix">
+        <a class="btn btn-info left" href="{% url 'qcrep-calendar' %}?{{ prev_month }}"> Previous Month </a>
+        <a class="btn btn-info right" href="{% url 'qcrep-calendar' %}?{{ next_month }}"> Next Month </a>
+        <center>
+    
+
+                {{calendar}}
+        
+               
+            </center> 
+    </div>
+    
+</div>
+
+
+{% endblock content %}

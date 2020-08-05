@@ -1,0 +1,82 @@
+{% extends "qcrep/base.html" %}
+{% load bootstrap %}
+{% block scripts%}
+{%endblock scripts%}
+
+{% block content %}
+<br><br><br>
+
+<div class="container">
+    
+    <h2 style="color: red">QC Report List page</h2>, <h3 style="color: red">Total Reviews({{ page_obj.paginator.count }})</h3><br>
+<h3>Search by:</h3>
+    <form method="GET">
+
+            {{ filter.form }}
+            
+            <button class="btn btn-primary" type="submit">Search</button>
+    
+    
+        </form>
+    
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col"><h5>Title</h5></th>
+                <th scope="col">Client</th>
+                
+                <th scope="col">Status</th>
+                <th scope="col">Tec Rejection</th>
+                <th scope="col">Image Reference</th>
+                <th scope="col">Reported By:</th>
+                <th scope="col">Reported Date:</th>
+                <th scope="col">Links</th>
+            </tr>
+        </thead>
+        {% for qcreport in filter.qs %}
+        <tbody>
+            <tr>
+                <th scope="row"><a style='color: blue' href="/qcreport/{{qcreport.id }}">{{ qcreport.title }}</a></th>
+                <td>{{ qcreport.client }}</td>
+                
+                
+                <td>{{ qcreport.status }}</td>
+                <td>{{ qcreport.tecreject }}</td> 
+                <td><img class="circle" width="72px" height="48px" src="/static/{{ qcreport.image.url }}"> </td>
+                <td><a style='color: blue' href="/user_qc_list/{{ qcreport.author }}"><img class="circle" width="25px" height="25px" src="/static/{{ qcreport.author.profile.image.url }}"> -{{ qcreport.author }}  </a></td>
+                <td>{{ qcreport.date_posted|date:"F d, Y" }}</td>
+                <td><a style='color: blue' href="/qcreport/{{qcreport.id }}">View Detail</a></td>
+            </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+
+<br>
+
+<center>
+{% if is_paginated %}
+
+    {% if page_obj.has_previous %}
+        <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+    {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+            <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+            {% elif num > page_obj.number|add:'-2' and num < page_obj.number|add:'2' %}
+            <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+
+    {% if page_obj.has_next %}
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+    {% endif %}
+
+{% endif %}
+</center>
+
+
+
+{% endblock content %}
